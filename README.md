@@ -1,2 +1,3 @@
-# osloportal
-Nyheter for oslo og av oslos befolkning
+# osloportalen
+Osloportalen er en portal for visning av nyheter i Oslo.
+
