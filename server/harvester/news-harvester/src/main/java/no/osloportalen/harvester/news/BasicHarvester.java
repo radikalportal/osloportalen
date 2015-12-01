@@ -3,10 +3,13 @@ package no.osloportalen.harvester.news;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.lightcouch.CouchDbClient;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import no.osloportalen.storage.couchdb.CouchDBFactory;
 
 public class BasicHarvester extends WebCrawler {
 
@@ -34,6 +37,10 @@ public class BasicHarvester extends WebCrawler {
 			String text = htmlParseData.getText();
 			String html = htmlParseData.getHtml();
 			Set<WebURL> links = htmlParseData.getOutgoingUrls();
+			
+			CouchDBFactory storageFactory = new CouchDBFactory();
+			CouchDbClient client = storageFactory.get();
+			
 
 //			System.out.println("============= TEXT =============================================================");
 //			System.out.println(text);
