@@ -1,6 +1,9 @@
 package no.osloportalen.storage.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import edu.uci.ics.crawler4j.crawler.Page;
 
 public class NewsContent implements Serializable {
 
@@ -26,6 +29,15 @@ public class NewsContent implements Serializable {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public static NewsContent convertFromPage(Page page) {
+
+		NewsContent content = new NewsContent();
+		content.setUrl(page.getWebURL().toString());
+		content.setDateStamp(new Date().toString());
+
+		return content;
 	}
 	
 }
