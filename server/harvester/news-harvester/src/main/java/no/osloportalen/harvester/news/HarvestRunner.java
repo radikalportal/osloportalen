@@ -13,17 +13,18 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
  * Hello world!
  *
  */
-public class Harvester {
+public class HarvestRunner {
 
 	private final static int numberOfHarvesters = 1;
 	private final static int maxDepthOfHarvesting = 1;
+
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hello World!");
 
-		Harvester.startHarvesting();
+		HarvestRunner.startHarvesting();
 	}
 
-	public static Harvester startHarvesting() throws Exception {
+	public static HarvestRunner startHarvesting() throws Exception {
 
 		System.out.println("Initializing the harvester");
 		List<String> webPagesToVisit = buildWebPagesToVisit();
@@ -43,7 +44,6 @@ public class Harvester {
 		}
 
 		controller.start(BasicHarvester.class, numberOfHarvesters);
-		
 		return null;
 	}
 

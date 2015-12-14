@@ -15,7 +15,7 @@ public class CouchDBFactory extends BasicFactory {
 	}
 
 	public CouchDbClient get() {
-		CouchDbClient client = new CouchDbClient();
+		CouchDbClient client = new CouchDbClient("couchdb.properties");
 		if (clients == null) {
 			clients = new ArrayList<CouchDbClient>();
 		}
@@ -30,6 +30,5 @@ public class CouchDBFactory extends BasicFactory {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 	 
 }
