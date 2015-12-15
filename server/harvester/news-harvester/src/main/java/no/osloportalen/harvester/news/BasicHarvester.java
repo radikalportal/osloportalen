@@ -26,7 +26,7 @@ public class BasicHarvester extends BaseHarvester {
 	public void visit(Page page) {
 		String url = page.getWebURL().getURL();
 		
-		System.out.println("================================================================================");
+		System.out.println("=================== NEW SESSION =============================================================");
 		System.out.println("URL: " + url);
 
 		parseHTMLContent(page);
@@ -39,13 +39,14 @@ public class BasicHarvester extends BaseHarvester {
 //			System.out.println("============= TEXT =============================================================");
 //			System.out.println(text);
 //			System.out.println("================================================================================");
-			System.out.println("================================================================================");
+//			System.out.println("================================================================================");
 			System.out.println("Number of outgoing links: " + links.size());
-			System.out.println("================================================================================");
+//			System.out.println("================================================================================");
 //			System.out.println("============= COUCHDB ==========================================================");
 //			System.out.println("Response ID = " + response.getId());
 //			System.out.println("Response = " + response.toString());
 //			System.out.println("================================================================================");
 		}
+		System.out.println("=================== SESSION END =============================================================");
 	}
 }

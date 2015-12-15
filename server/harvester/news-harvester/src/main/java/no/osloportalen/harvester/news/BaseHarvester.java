@@ -1,6 +1,7 @@
 package no.osloportalen.harvester.news;
 
 import org.lightcouch.CouchDbClient;
+import org.lightcouch.Response;
 
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
@@ -50,7 +51,8 @@ public abstract class BaseHarvester extends WebCrawler {
 		CouchDbClient client = storageFactory.get();
 		NewsContent newsContent = NewsContent.convertFromPage(this.page);
 		newsContent.setContent(parsedContent);
-		client.save(newsContent);
+		Response couchDBResponse = client.save(newsContent);
+		System.out.println("Content stored with id: " + couchDBResponse.getId());
 //		Response response = client.save(htmlParseData);
 		
 	}

@@ -18,19 +18,24 @@ public class RadikalPortalParser implements Parser {
 
 		if (articleElement != null) {
 			Elements paragraphElements = articleElement.getElementsByTag("p");
+//			System.out.println("============= PARSER ==========================================================");
 			for (Element paragraphElement : paragraphElements) {
 				if ( "".equals(paragraphElement.attr("class"))) {
-					htmlContentBuffer.append(paragraphElement.text());
+//					System.out.println("Paragraph content = " + paragraphElement.html());
+//					System.out.println("TEXT content = " + paragraphElement.text());
+
+					htmlContentBuffer.append(paragraphElement.html());
 				}
 			}
+//			System.out.println("================================================================================");
 		}
 
 		// System.out.println("============= HTML
 		// =============================================================");
 		// System.out.println(html);
-		System.out.println("================================================================================");
-		System.out.println("============= PARSER ==========================================================");
-		System.out.println("HTML content = " + htmlContentBuffer.toString());
+//		System.out.println("================================================================================");
+		System.out.println("============= PARSED CONTENT ===================================================");
+		System.out.println(htmlContentBuffer.toString());
 		System.out.println("================================================================================");
 		
 		return htmlContentBuffer.toString();
