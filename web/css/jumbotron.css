@@ -3,3 +3,10 @@ body {
   padding-top: 30px;
   padding-bottom: 20px;
 }
+
+.jumbotron {
+	background-image: url("../img/kart_2_blurred.png");
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	height: 600px;
+}
