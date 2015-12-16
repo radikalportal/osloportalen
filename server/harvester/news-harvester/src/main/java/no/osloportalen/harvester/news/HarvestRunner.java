@@ -19,9 +19,10 @@ public class HarvestRunner {
 	private final static int maxDepthOfHarvesting = 1;
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello World!");
+		System.out.println("Yum yum!");
 
 		HarvestRunner.startHarvesting();
+		System.out.println("Ahhh.. That was good!");
 	}
 
 	public static HarvestRunner startHarvesting() throws Exception {
