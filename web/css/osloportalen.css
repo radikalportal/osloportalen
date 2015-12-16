@@ -1,7 +1,7 @@
 
 .navbar-inverse {
-    background-color: #c93838;
-	border-color: #9C4545;
+    background-color: #545454;
+	border-color: #101010;
 }
 
 .navbar-inverse .navbar-brand {
@@ -13,7 +13,7 @@
 }
 
 .navbar {
-    /* min-height: 30px; */
-    margin-bottom: 10px;
-	padding: 5px 15px;
+    min-height: 20px;
+    margin-bottom: 5px;
+	/* padding: 5px 5px; */
 }
