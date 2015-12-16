@@ -8,13 +8,13 @@ import org.lightcouch.CouchDbClient;
 import no.osloportalen.storage.BasicFactory;
 
 public class CouchDBFactory extends BasicFactory {
-	private List<CouchDbClient> clients;
+	private static List<CouchDbClient> clients;
 
 	{
 		clients = new ArrayList<CouchDbClient>();
 	}
 
-	public CouchDbClient get() {
+	public static CouchDbClient get() {
 		CouchDbClient client = new CouchDbClient("couchdb.properties");
 		if (clients == null) {
 			clients = new ArrayList<CouchDbClient>();
