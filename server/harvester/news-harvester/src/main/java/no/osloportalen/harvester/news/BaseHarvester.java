@@ -47,8 +47,7 @@ public abstract class BaseHarvester extends WebCrawler {
 			return;
 		}
 		
-		CouchDBFactory storageFactory = new CouchDBFactory();
-		CouchDbClient client = storageFactory.get();
+		CouchDbClient client = CouchDBFactory.get();
 		NewsContent newsContent = NewsContent.convertFromPage(this.page);
 		newsContent.setContent(parsedContent);
 		Response couchDBResponse = client.save(newsContent);

@@ -8,17 +8,18 @@ import edu.uci.ics.crawler4j.crawler.Page;
 public class NewsContent implements Serializable {
 
 	private static final long serialVersionUID = -8996012815175562629L;
+	private String _id;
 	private String _rev;
 	private String dateStamp;
 	private String content;
 	private String url;
 
 	public String get_id() {
-		return getUrl();
+		return this._id;
 	}
 
 	public void set_id(String _id) {
-		this.setUrl(_id);
+		this._id = _id;
 	}
 
 	public String get_rev() {
@@ -57,6 +58,7 @@ public class NewsContent implements Serializable {
 
 		NewsContent content = new NewsContent();
 		content.setUrl(page.getWebURL().toString());
+		content.set_id(content.getUrl());
 		content.setDateStamp(new Date().toString());
 
 		return content;

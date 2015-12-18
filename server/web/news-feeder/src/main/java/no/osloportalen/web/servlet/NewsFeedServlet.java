@@ -40,7 +40,7 @@ public class NewsFeedServlet extends HttpServlet {
 		
 		System.out.println("COntentlist = " + contentList.size());
 		for (NewsContent content : contentList) {
-//			System.out.println(content.getUrl());
+			System.out.println(content.getUrl());
 			writer.write(content.getUrl() + " " + content.getContent());
 		}
 		// client.find(NewsContent.class, id, params);
