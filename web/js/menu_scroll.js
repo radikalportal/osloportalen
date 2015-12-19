@@ -47,6 +47,7 @@ $(document).ready(function(){
     window_height = $(window).height();
 
     burger_menu = $('nav').hasClass('navbar-burger') ? true : false;
+    console.log("Burger menu: " + burger_menu);
     
     if (!Modernizr.touch){
         $('body').addClass('no-touch');
@@ -152,6 +153,7 @@ rubik = {
   
     },
     initRightMenu: function(){  
+    	console.log("InitRightMenu answering....");
          if(!navbar_initialized){
             $nav = $('nav');
             $nav.addClass('navbar-burger');
