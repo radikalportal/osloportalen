@@ -1,5 +1,8 @@
 package no.osloportalen.harvester.news;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.Response;
 
@@ -42,6 +45,9 @@ public abstract class BaseHarvester extends WebCrawler {
 			return;
 		}
 		
+		if (!isPageRelevant() ) {
+			return;
+		}
 		
 		CouchDbClient client = CouchDBFactory.get();
 		NewsContent newsContent = NewsContent.convertFromPage(this.page);
@@ -72,10 +78,25 @@ public abstract class BaseHarvester extends WebCrawler {
 	private int runSimpleWordSearch() {
 		String words[] = parsedContent.split(" ");
 		for ( int newsWordCounter = 0; newsWordCounter < words.length; newsWordCounter++) {
-			if ( words[newsWordCounter].equalsIgnoreCase(anotherString))
+//			if ( words[newsWordCounter].equalsIgnoreCase(anotherString))
 		}
 		
 		return 0;
+	}
+	private boolean isPageRelevant() {
+		String url = page.getWebURL().getURL();
+		if ( url.startsWith("http://radikalportal.no/") ) {
+			return true;
+		}
+		
+		// Does content contain words oslo, frogner 
+		Map<String, Float> wordWeight = new HashMap<String, Float>();
+		wordWeight.put("oslo", 0.2f);
+		wordWeight.put("frogner", 0.1f);
+		wordWeight.put("alna", 0.1f);
+		
+		return true;
+
 	}
 
 	protected void decideWhichParser(String href) {

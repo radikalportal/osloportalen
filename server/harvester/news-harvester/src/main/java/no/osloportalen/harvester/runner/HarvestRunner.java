@@ -1,10 +1,5 @@
-package no.osloportalen.harvester.news;
+package no.osloportalen.harvester.runner;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +10,8 @@ import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
-import no.osloportalen.harvester.news.processor.RulesProcessor;
+import no.osloportalen.harvester.news.BasicHarvester;
+import no.osloportalen.harvester.news.processor.RulesEngine;
 
 /**
  * Hello world!
@@ -26,19 +22,21 @@ public class HarvestRunner {
 	private final static int numberOfHarvesters = 1;
 	private final static int maxDepthOfHarvesting = 1;
 	private static Map<String, Integer> keyWords = new HashMap<String, Integer>();
-	private final RulesProcessor rulesProcessor;
+	private static RulesEngine rulesEngine;
 	
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Yum yum!");
 
-		processRules();
+		startRuleEngine();
 
 //		HarvestRunner.startHarvesting();
 		System.out.println("Ahhh.. That was good!");
 	}
 
-	
+	private static void startRuleEngine() {
+		rulesEngine = new RulesEngine();
+	}
 
 	public static HarvestRunner startHarvesting() throws Exception {
 
