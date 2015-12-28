@@ -38,14 +38,10 @@ public abstract class BaseHarvester extends WebCrawler {
 	}
 
 	protected void persistContent() {
-		if ("".equals(parsedContent)) {
-			System.out.println("No content to persist");
+		if ( !isContentRelevant() ) {
 			return;
 		}
 		
-		if (page == null) {
-			return;
-		}
 		
 		CouchDbClient client = CouchDBFactory.get();
 		NewsContent newsContent = NewsContent.convertFromPage(this.page);
@@ -56,6 +52,32 @@ public abstract class BaseHarvester extends WebCrawler {
 		
 	}
 	
+	private boolean isContentRelevant() {
+		int score = 0;
+		if ("".equals(parsedContent)) {
+			System.out.println("No content to persist");
+			return false;
+		}
+		
+		if (page == null) {
+			return false;
+		}
+		
+		score = runSimpleWordSearch();
+		
+		return false;
+
+	}
+
+	private int runSimpleWordSearch() {
+		String words[] = parsedContent.split(" ");
+		for ( int newsWordCounter = 0; newsWordCounter < words.length; newsWordCounter++) {
+			if ( words[newsWordCounter].equalsIgnoreCase(anotherString))
+		}
+		
+		return 0;
+	}
+
 	protected void decideWhichParser(String href) {
 		if (href.contains("radikalportal.no")) {
 			CURRENT_PARSER = WHICH_PARSER.radikalportal.name();
