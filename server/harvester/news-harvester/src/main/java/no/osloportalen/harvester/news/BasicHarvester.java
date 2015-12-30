@@ -28,6 +28,10 @@ public class BasicHarvester extends BaseHarvester {
 		
 		System.out.println("=================== NEW SESSION =============================================================");
 		System.out.println("URL: " + url);
+		
+		if (isDocumentAlreadyHarvested(url)) {
+			
+		}
 
 		parseHTMLContent(page);
 		persistContent();
@@ -49,4 +53,5 @@ public class BasicHarvester extends BaseHarvester {
 		}
 		System.out.println("=================== SESSION END =============================================================");
 	}
+
 }

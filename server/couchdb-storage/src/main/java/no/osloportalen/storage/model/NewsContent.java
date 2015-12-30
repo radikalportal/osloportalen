@@ -3,16 +3,22 @@ package no.osloportalen.storage.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.ektorp.support.CouchDbDocument;
+import org.ektorp.support.TypeDiscriminator;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 
-public class NewsContent implements Serializable {
+public class NewsContent extends CouchDbDocument implements Serializable {
 
 	private static final long serialVersionUID = -8996012815175562629L;
 	private String _id;
 	private String _rev;
 	private String dateStamp;
 	private String content;
+	@TypeDiscriminator
 	private String url;
+	private int shelfLifeHours = 12;
+	private int checksum;
 
 	public String get_id() {
 		return this._id;
@@ -51,7 +57,24 @@ public class NewsContent implements Serializable {
 	}
 
 	public void setContent(String content) {
+		this.setChecksum( content.hashCode() );
 		this.content = content;
+	}
+
+	public int getChecksum() {
+		return this.checksum;
+	}
+
+	public void setChecksum(int checksum) {
+		this.checksum = checksum;
+	}
+
+	public int getShelfLifeHours() {
+		return shelfLifeHours;
+	}
+
+	public void setShelfLifeHours(int shelfLifeHours) {
+		this.shelfLifeHours = shelfLifeHours;
 	}
 
 	public static NewsContent convertFromPage(Page page) {

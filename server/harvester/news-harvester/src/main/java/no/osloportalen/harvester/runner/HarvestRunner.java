@@ -12,6 +12,9 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import no.osloportalen.harvester.news.BasicHarvester;
 import no.osloportalen.harvester.news.processor.RulesEngine;
+import no.osloportalen.storage.BasicStorageFactory;
+import no.osloportalen.storage.couchdb.repository.NewsContentRepository;
+import no.osloportalen.storage.model.NewsContent;
 
 /**
  * Hello world!
@@ -28,8 +31,17 @@ public class HarvestRunner {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Yum yum!");
 
-		startRuleEngine();
+//		startRuleEngine();
 
+		try {
+			NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
+			NewsContent content = new NewsContent();
+			content.set_id( "asjajaja" );
+			content.setUrl( "http://jajajaja.no" );
+			repo.add( content );
+		} catch (Exception e) {
+			System.out.println( "Fuck it! " + e.getMessage() );
+		}
 //		HarvestRunner.startHarvesting();
 		System.out.println("Ahhh.. That was good!");
 	}
@@ -40,11 +52,13 @@ public class HarvestRunner {
 
 	public static HarvestRunner startHarvesting() throws Exception {
 
+		
 		System.out.println("Initializing the harvester");
 		List<String> webPagesToVisit = buildWebPagesToVisit();
 
 		CrawlConfig config = new CrawlConfig();
-		config.setCrawlStorageFolder("/Users/kjella/Documents/work/Private/osloportal/server/harvester/storage");
+//		config.setCrawlStorageFolder("/Users/kjella/Documents/work/Private/osloportal/server/harvester/storage");
+		config.setCrawlStorageFolder("/mnt/lagring/Documents/Work/RadikalPortal/OsloPortal/code/server/harvester/storage");
 		config.setUserAgentString("OsloPortalen innhøster - v0.3a (http://www.osloportalen.no)");
 		config.setMaxDepthOfCrawling(maxDepthOfHarvesting);
 

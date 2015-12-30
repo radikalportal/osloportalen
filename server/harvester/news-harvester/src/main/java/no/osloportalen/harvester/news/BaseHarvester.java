@@ -1,22 +1,17 @@
 package no.osloportalen.harvester.news;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.lightcouch.CouchDbClient;
-import org.lightcouch.Response;
-
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import no.osloportalen.harvester.parser.Parser;
 import no.osloportalen.harvester.parser.RadikalPortalParser;
-import no.osloportalen.storage.couchdb.CouchDBFactory;
+import no.osloportalen.storage.BasicStorageFactory;
 import no.osloportalen.storage.model.NewsContent;
 
 public abstract class BaseHarvester extends WebCrawler {
 	private String parsedContent = new String();
 	private Page page;
+
 	protected enum WHICH_PARSER {
 		radikalportal, dagbladet, aftenposten
 	};
@@ -25,82 +20,62 @@ public abstract class BaseHarvester extends WebCrawler {
 
 	protected void parseHTMLContent(Page page) {
 
-		if (page.getParseData() instanceof HtmlParseData) {
+		if ( page.getParseData() instanceof HtmlParseData ) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			this.page = page;
-//			String text = htmlParseData.getText();
+			// String text = htmlParseData.getText();
 			String html = htmlParseData.getHtml();
 			Parser parser = null;
-			
-			if ( CURRENT_PARSER.equals(WHICH_PARSER.radikalportal.name())) {
+
+			if ( CURRENT_PARSER.equals( WHICH_PARSER.radikalportal.name() ) ) {
 				parser = new RadikalPortalParser();
 			}
 
-			parsedContent = parser.doParse(html);
+			parsedContent = parser.doParse( html );
 		}
 	}
 
 	protected void persistContent() {
+
 		if ( !isContentRelevant() ) {
 			return;
 		}
-		
-		if (!isPageRelevant() ) {
-			return;
-		}
-		
-		CouchDbClient client = CouchDBFactory.get();
-		NewsContent newsContent = NewsContent.convertFromPage(this.page);
-		newsContent.setContent(parsedContent);
-		Response couchDBResponse = client.save(newsContent);
-		System.out.println("Content stored with id: " + couchDBResponse.getId());
-//		Response response = client.save(htmlParseData);
-		
+
+//		NewsContent newsContent = NewsContent.convertFromPage( this.page );
+//		newsContent.setContent( parsedContent );
+//		try {
+//			BasicStorageFactory.getNewsContentRepository().add( newsContent );
+//		} catch (Exception e) {
+//			System.out.println( "Fuck it! " + e.getMessage() );
+//		}
+		// Response couchDBResponse = client.save(newsContent);
+		// System.out.println("Content stored with id: " +
+		// couchDBResponse.getId());
+		// Response response = client.save(htmlParseData);
+
 	}
-	
+
+	protected boolean isDocumentAlreadyHarvested(String url) {
+		// BasicStorageFactory factory =
+
+		return false;
+	}
+
 	private boolean isContentRelevant() {
 		int score = 0;
-		if ("".equals(parsedContent)) {
-			System.out.println("No content to persist");
+		if ( "".equals( parsedContent ) ) {
+			System.out.println( "No content to persist" );
 			return false;
 		}
-		
-		if (page == null) {
+
+		if ( page == null ) {
 			return false;
 		}
-		
-		score = runSimpleWordSearch();
-		
-		return false;
-
-	}
-
-	private int runSimpleWordSearch() {
-		String words[] = parsedContent.split(" ");
-		for ( int newsWordCounter = 0; newsWordCounter < words.length; newsWordCounter++) {
-//			if ( words[newsWordCounter].equalsIgnoreCase(anotherString))
-		}
-		
-		return 0;
-	}
-	private boolean isPageRelevant() {
-		String url = page.getWebURL().getURL();
-		if ( url.startsWith("http://radikalportal.no/") ) {
-			return true;
-		}
-		
-		// Does content contain words oslo, frogner 
-		Map<String, Float> wordWeight = new HashMap<String, Float>();
-		wordWeight.put("oslo", 0.2f);
-		wordWeight.put("frogner", 0.1f);
-		wordWeight.put("alna", 0.1f);
-		
 		return true;
-
 	}
 
 	protected void decideWhichParser(String href) {
-		if (href.contains("radikalportal.no")) {
+		if ( href.contains( "radikalportal.no" ) ) {
 			CURRENT_PARSER = WHICH_PARSER.radikalportal.name();
 		}
 	}
