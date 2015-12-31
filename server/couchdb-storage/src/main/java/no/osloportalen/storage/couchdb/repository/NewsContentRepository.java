@@ -1,5 +1,7 @@
 package no.osloportalen.storage.couchdb.repository;
 
+import java.util.List;
+
 import org.ektorp.CouchDbConnector;
 import org.ektorp.support.CouchDbRepositorySupport;
 
@@ -11,4 +13,8 @@ public class NewsContentRepository extends CouchDbRepositorySupport<NewsContent>
 		super( newsContent, db );
 	}
 
+	public List<NewsContent> findByUrl(String url) {
+		return queryView("url", url);
+	}
+	
 }

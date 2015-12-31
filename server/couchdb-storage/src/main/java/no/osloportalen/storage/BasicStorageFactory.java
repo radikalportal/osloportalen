@@ -1,5 +1,7 @@
 package no.osloportalen.storage;
 
+import java.util.List;
+
 import org.ektorp.CouchDbConnector;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,7 +15,8 @@ public class BasicStorageFactory {
 	public static void main(String[] args) {
 		BasicStorageFactory.initializeConnection();
 		NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
-		repo.get( "21212211" );
+		List<NewsContent> contents = repo.findByUrl( "http://radikalportal.no/2015/12/22/rapport-fra-en-krigssone/");
+		System.out.println( "Contents found: " + contents.size() );
 	} 
 	
 	private static void initializeConnection() {
