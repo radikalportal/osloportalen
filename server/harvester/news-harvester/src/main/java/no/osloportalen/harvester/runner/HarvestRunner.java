@@ -5,42 +5,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
-import no.osloportalen.harvester.news.BasicHarvester;
+import no.osloportalen.harvester.news.DefaultHarvester;
 import no.osloportalen.harvester.news.processor.RulesEngine;
 
-/**
- * Hello world!
- *
- */
 public class HarvestRunner {
 
 	private final static int numberOfHarvesters = 1;
-	private final static int maxDepthOfHarvesting = 1;
+	private final static int maxDepthOfHarvesting = 10;
 	private static Map<String, Integer> keyWords = new HashMap<String, Integer>();
 	private static RulesEngine rulesEngine;
+	private static Logger logger = LogManager.getLogger(HarvestRunner.class.getName());
 	
-
 	public static void main(String[] args) throws Exception {
-		System.out.println("Yum yum!");
+		logger.debug( "Starting harvester as a separate runner" );
 
-//		startRuleEngine();
-
-//		try {
-//			NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
-//			NewsContent content = new NewsContent();
-//			content.set_id( "asjajaja" );
-//			content.setUrl( "http://jajajaja.no" );
-//			repo.add( content );
-//		} catch (Exception e) {
-//			System.out.println( "Fuck it! " + e.getMessage() );
-//		}
+		startRuleEngine();
 		HarvestRunner.startHarvesting();
-		System.out.println("Ahhh.. That was good!");
+		logger.debug( "Harvester is now shutdown" );
 	}
 
 	private static void startRuleEngine() {
@@ -68,17 +57,17 @@ public class HarvestRunner {
 			controller.addSeed(webURL);
 		}
 
-		controller.start(BasicHarvester.class, numberOfHarvesters);
+		controller.start(DefaultHarvester.class, numberOfHarvesters);
 		return null;
 	}
 
 	private static final List<String> buildWebPagesToVisit() {
 		List<String> webPagesToVisit = new ArrayList<String>();
-		webPagesToVisit.add("http://radikalportal.no/osloportalen");
+//		webPagesToVisit.add("http://radikalportal.no/osloportalen");
 		// webPagesToVisit.add("http://radikalportal.no");
-		// webPagesToVisit.add("http://www.db.no");
-		// webPagesToVisit.add("http://www.aftenposten.no");
-		// webPagesToVisit.add("http://www.vg.no");
+//		webPagesToVisit.add("http://www.db.no");
+		webPagesToVisit.add("http://www.aftenposten.no");
+//		webPagesToVisit.add("http://www.vg.no");
 		return webPagesToVisit;
 	}
 

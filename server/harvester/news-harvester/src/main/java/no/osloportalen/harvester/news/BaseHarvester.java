@@ -1,11 +1,14 @@
 package no.osloportalen.harvester.news;
 
+import java.util.List;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import no.osloportalen.harvester.parser.Parser;
-import no.osloportalen.harvester.parser.RadikalPortalParser;
+import no.osloportalen.harvester.parser.DefaultWebParser;
 import no.osloportalen.storage.BasicStorageFactory;
+import no.osloportalen.storage.couchdb.repository.NewsContentRepository;
 import no.osloportalen.storage.model.NewsContent;
 
 public abstract class BaseHarvester extends WebCrawler {
@@ -23,13 +26,14 @@ public abstract class BaseHarvester extends WebCrawler {
 		if ( page.getParseData() instanceof HtmlParseData ) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			this.page = page;
-			// String text = htmlParseData.getText();
+//			String text = htmlParseData.getText();
 			String html = htmlParseData.getHtml();
 			Parser parser = null;
 
-			if ( CURRENT_PARSER.equals( WHICH_PARSER.radikalportal.name() ) ) {
-				parser = new RadikalPortalParser();
-			}
+			// if ( CURRENT_PARSER.equals( WHICH_PARSER.radikalportal.name() ) )
+			// {
+			parser = new DefaultWebParser();
+			// }
 
 			parsedContent = parser.doParse( html );
 		}
@@ -74,7 +78,12 @@ public abstract class BaseHarvester extends WebCrawler {
 	}
 
 	protected boolean isDocumentAlreadyHarvested(String url) {
-		// BasicStorageFactory factory =
+		NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
+		List<NewsContent> contents = repo.findByUrl( url );
+
+		if ( contents != null && contents.size() > 0 ) {
+			return true;
+		}
 
 		return false;
 	}

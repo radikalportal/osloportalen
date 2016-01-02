@@ -164,42 +164,47 @@ public class RulesEngine {
 			wordShortestLength = keyWord.length();
 			wordLongestLength = lineWord.length();
 		}
-		
-		if ( wordLongestLength - wordShortestLength > (Math.ceil(wordShortestLength * 1.15))) {
+
+		if ( wordLongestLength - wordShortestLength > ( Math.ceil( wordShortestLength * 1.15 ) ) ) {
 			tooDifferentSizesToDoAMatch = true;
 		}
-		
+
 		if ( tooDifferentSizesToDoAMatch ) {
-//			System.out.println( "Asked to compare strings that are tooo different in sizes" );
+			// System.out.println( "Asked to compare strings that are tooo
+			// different in sizes" );
 			return false;
 		}
-		
+
 		boolean doesCharacterMatch = true;
 		boolean[] multipleTruths = new boolean[wordShortestLength];
-//		System.out.println( "Checking " + wordShortestLength );
+		// System.out.println( "Checking " + wordShortestLength );
 		char[] lineWordChars = lineWord.toCharArray();
 		char[] keyWordChars = keyWord.toCharArray();
 		for ( int i = 0; i < wordShortestLength; i++ ) {
-//			System.out.println( "Analyzing " + lineWordChars[i] );
+			// System.out.println( "Analyzing " + lineWordChars[i] );
 			multipleTruths[i] = false;
 			for ( int y = 0; y < wordShortestLength; y++ ) {
-//				System.out.println( lineWordChars[i] + "==" + keyWordChars[y] + "?" );
+				// System.out.println( lineWordChars[i] + "==" + keyWordChars[y]
+				// + "?" );
 				if ( lineWordChars[i] == keyWordChars[y] ) {
-//					System.out.println( i + " is true" );
+					// System.out.println( i + " is true" );
 					multipleTruths[i] = true;
 				}
 			}
-//			System.out.println( "Did I find " + lineWordChars[i] + "? " + multipleTruths[i] );
+			// System.out.println( "Did I find " + lineWordChars[i] + "? " +
+			// multipleTruths[i] );
 		}
 		for ( int j = 0; j < multipleTruths.length; j++ ) {
-//			System.out.println( "Was pos " + j + " true? " + multipleTruths[j]);
+			// System.out.println( "Was pos " + j + " true? " +
+			// multipleTruths[j]);
 			if ( !multipleTruths[j] ) {
 				doesCharacterMatch = false;
 				break;
 			}
 		}
-//		System.out.println( "returning " + doesCharacterMatch );
-//		System.out.println( "---------------------------------------------------------" );
+		// System.out.println( "returning " + doesCharacterMatch );
+		// System.out.println(
+		// "---------------------------------------------------------" );
 		return doesCharacterMatch;
 	}
 
