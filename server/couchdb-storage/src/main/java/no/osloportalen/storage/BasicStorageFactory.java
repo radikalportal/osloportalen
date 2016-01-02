@@ -15,7 +15,7 @@ public class BasicStorageFactory {
 	public static void main(String[] args) {
 		BasicStorageFactory.initializeConnection();
 		NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
-		List<NewsContent> contents = repo.findByUrl( "http://radikalportal.no/2015/12/22/rapport-fra-en-krigssone/");
+		List<NewsContent> contents = repo.findByUrl( "http://radikalportal.no/2015/12/22/rapport-fraa-en-krigssone/");
 		System.out.println( "Contents found: " + contents.size() );
 	} 
 	
