@@ -12,9 +12,6 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import no.osloportalen.harvester.news.BasicHarvester;
 import no.osloportalen.harvester.news.processor.RulesEngine;
-import no.osloportalen.storage.BasicStorageFactory;
-import no.osloportalen.storage.couchdb.repository.NewsContentRepository;
-import no.osloportalen.storage.model.NewsContent;
 
 /**
  * Hello world!
@@ -33,16 +30,16 @@ public class HarvestRunner {
 
 //		startRuleEngine();
 
-		try {
-			NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
-			NewsContent content = new NewsContent();
-			content.set_id( "asjajaja" );
-			content.setUrl( "http://jajajaja.no" );
-			repo.add( content );
-		} catch (Exception e) {
-			System.out.println( "Fuck it! " + e.getMessage() );
-		}
-//		HarvestRunner.startHarvesting();
+//		try {
+//			NewsContentRepository repo = BasicStorageFactory.getNewsContentRepository();
+//			NewsContent content = new NewsContent();
+//			content.set_id( "asjajaja" );
+//			content.setUrl( "http://jajajaja.no" );
+//			repo.add( content );
+//		} catch (Exception e) {
+//			System.out.println( "Fuck it! " + e.getMessage() );
+//		}
+		HarvestRunner.startHarvesting();
 		System.out.println("Ahhh.. That was good!");
 	}
 

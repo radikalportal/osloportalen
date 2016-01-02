@@ -41,18 +41,36 @@ public abstract class BaseHarvester extends WebCrawler {
 			return;
 		}
 
-//		NewsContent newsContent = NewsContent.convertFromPage( this.page );
-//		newsContent.setContent( parsedContent );
-//		try {
-//			BasicStorageFactory.getNewsContentRepository().add( newsContent );
-//		} catch (Exception e) {
-//			System.out.println( "Fuck it! " + e.getMessage() );
-//		}
+		NewsContent newsContent = NewsContent.convertFromPage( this.page );
+		newsContent.setContent( parsedContent );
+		if ( isPageAlreadySeen( page.getWebURL().toString() ) ) {
+			return;
+		}
+		try {
+			BasicStorageFactory.getNewsContentRepository().add( newsContent );
+		} catch (Exception e) {
+			System.out.println( "Fuck it! " + e.getMessage() );
+		}
 		// Response couchDBResponse = client.save(newsContent);
 		// System.out.println("Content stored with id: " +
 		// couchDBResponse.getId());
 		// Response response = client.save(htmlParseData);
 
+	}
+
+	private boolean isPageAlreadySeen(String string) {
+		NewsContent storedContent = null;
+		try {
+			storedContent = BasicStorageFactory.getNewsContentRepository().get( string );
+		} catch (Exception e) {
+			System.out.println( "Fuck it! " + e.getMessage() );
+		}
+
+		if ( storedContent != null ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	protected boolean isDocumentAlreadyHarvested(String url) {
@@ -62,7 +80,7 @@ public abstract class BaseHarvester extends WebCrawler {
 	}
 
 	private boolean isContentRelevant() {
-		int score = 0;
+		// int score = 0;
 		if ( "".equals( parsedContent ) ) {
 			System.out.println( "No content to persist" );
 			return false;
@@ -71,6 +89,7 @@ public abstract class BaseHarvester extends WebCrawler {
 		if ( page == null ) {
 			return false;
 		}
+
 		return true;
 	}
 
