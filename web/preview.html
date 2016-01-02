@@ -12,6 +12,7 @@
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="js/osloPortalenApp/controllers/basic-controllers.js"></script>
 	
+	
 	<title>Beta visning - osloportalen.no</title>
 	
 	<!-- Bootstrap core CSS -->
@@ -23,6 +24,10 @@
 	<!-- Custom styles for this template -->
 	<link href="css/jumbotron.css" rel="stylesheet">
 	<link href="css/osloportalen.css" rel="stylesheet">
+	<!-- LeafletJS map -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<!-- /LeafletJS map -->
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
 	
 	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -66,21 +71,39 @@
 	</nav>
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
+<!-- 	<div class="jumbotron">
 		<div class="container">
 			<h1>OsloPortalen</h1>
 			<p>Osloportalen er en maktkritisk nyhets- og debattkanal for Oslo.<br/>Vi ønsker å være et talerør for folk flest og løfte fram det positive mangfoldet i hovedstaden.</p>
 			
 			<div class="carousel" ng-controller="InstagramCtrl">
-				<!-- <ul>
+				<ul>
 					<li ng-repeat="image in images">
 					{{ image.name }}
 					{{ image.url }}
 					</li>
-				</ul> -->
+				</ul>
 			</div>
 		</div>
 	</div>
+ -->
+
+	<div id="main_map">
+	</div>
+	<hr/>
+	<div class="alert alert-warning">
+		<p>Osloportalen er en maktkritisk nyhets- og debattkanal for Oslo.<br/>Vi ønsker å være et talerør for folk flest og løfte fram det positive mangfoldet i hovedstaden.</p>
+		
+<!-- 		<div class="carousel" ng-controller="InstagramCtrl">
+			<ul>
+				<li ng-repeat="image in images">
+				{{ image.name }}
+				{{ image.url }}
+				</li>
+			</ul>
+		</div> -->
+	</div>
+
 
 	<div class="container">
 		<div class="row">
@@ -92,23 +115,20 @@
 		<hr>
 	
 		<!-- Example row of columns -->
-		<div class="row">
+		<div class="row" ng-controller="NewsContentCtrl">
 			<div class="col-md-4">
-				<h2>Nyheter</h2>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce
-					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-					magna mollis euismod. Donec sed odio dui.</p>
+				<h1>Nyheter</h1>
+				<h2>{{ news[0].title }}</h2>
+				<p>{{ news[0].ingress }}</p>
 				<p>
-					<a class="btn btn-default" href="#" role="button">Les mer
+					<a class="btn btn-default" href="{{ news[0].url }}" role="button">Les mer
 						&raquo;</a>
 				</p>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce
-					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-					magna mollis euismod. Donec sed odio dui.</p>
+				
+				<h2>{{ news[1].title }}</h2>
+				<p>{{ news[2].ingress }}</p>
 				<p>
-					<a class="btn btn-default" href="#" role="button">Les mer
+					<a class="btn btn-default" href="{{ news[1].url }}" role="button">Les mer
 						&raquo;</a>
 				</p>
 				
@@ -120,10 +140,12 @@
 			</div>
 			<div class="col-md-4">
 				<h2>Hendelser</h2>
-				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-					nibh, ut fermentum massa justo sit amet risus.</p>
+				<p>Vi tester design!
+				Lenke: <a href="http://www.db.no">dagbladet</a>
+				Button primary: <a href="#" class="btn btn-primary">Test</a>
+				Button danger: <a href="#" class="btn btn-danger">Test</a>
+				Button warning: <a href="#" class="btn btn-warning">Test</a>
+				</p>
 				<p>
 					<a class="btn btn-default" href="#" role="button">Les mer
 						&raquo;</a>
@@ -179,6 +201,43 @@
 			</div>
 		</div>
 
+		<!-- Example row of columns -->
+		<div class="row">
+			<div class="col-md-4">
+				<h2>Heading</h2>
+				<p>Donec id elit non mi porta gravida at eget metus. Fusce
+					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+					magna mollis euismod. Donec sed odio dui.</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">Les mer
+						&raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>Heading</h2>
+				<p>Donec id elit non mi porta gravida at eget metus. Fusce
+					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+					magna mollis euismod. Donec sed odio dui.</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">Les mer
+						&raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>Heading</h2>
+				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
+					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
+					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
+					nibh, ut fermentum massa justo sit amet risus.</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">Les mer
+						&raquo;</a>
+				</p>
+			</div>
+		</div>
+
 		<hr>
 
 		<footer>
@@ -186,63 +245,48 @@
 		</footer>
 	</div>
 	<!-- /container -->
-	<div class="collapse navbar-collapse" style="min-height: 1920px;"><ul class="nav navbar-nav">
-                        <li class="social-links">
-                            <a href="https://www.facebook.com/CreativeTim">
-                                <i class="fa fa-facebook-square"></i>
-                            </a>
-                            <a href="https://twitter.com/CreativeTim">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                            <a href="https://plus.google.com/+CreativetimPage">
-                                <i class="fa fa-google-plus-square"></i>
-                            </a>
-                            <a href="https://dribbble.com/creativetim">
-                                <i class="fa fa-dribbble"></i>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#whoWeAre">
-                            About
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#workflow">
-                            What We Do
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#projects">
-                            Famous Freebies
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#uitools">
-                            Premium UI Tools
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#clients">
-                            Testimonials
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#team">
-                            Team
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#numbers">
-                            Numbers
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-scroll="true" data-id="#contact">
-                            Contact
-                            </a>
-                        </li>
-                    </ul></div>
+	<div class="collapse navbar-collapse" style="min-height: 1920px;">
+		<ul class="nav navbar-nav">
+			<li class="social-links">
+				<a href="https://www.facebook.com/CreativeTim">
+					<i class="fa fa-facebook-square"></i>
+				</a>
+				<a href="https://twitter.com/CreativeTim">
+					<i class="fa fa-twitter"></i>
+		        </a>
+				<a href="https://plus.google.com/+CreativetimPage">
+					<i class="fa fa-google-plus-square"></i>
+				</a>
+				<a href="https://dribbble.com/creativetim">
+					<i class="fa fa-dribbble"></i>
+				</a>
+		    </li>
+		</ul>
+	</div>
+	<div class="modal fade" tabindex="-1" role="dialog" id="welcome_modal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h1>Velkommen til OsloPortalen</h1>
+				</div>
+				<div class="modal-body">
+					<p>Vi bygger et åpent nettsted for å samle alt av nyheter, hendelser som er viktig for oss som bor i Oslo<br/>
+					Lurer du på hva som skjer av hendelser i byen? Ønsker du å bli oppdatert på hendelser som er relevant for deg?<br/>
+					Vi trenger folk som har lyst til å leke, utfordre og skape denne portalen sammen med oss.</p>
+					<h3>Hvem er vi?</h3>
+					<p>Osloportalen er en maktkritisk nyhets- og debattkanal for Oslo.<br/>
+Vi ønsker å være et talerør for folk flest og løfte fram det positive mangfoldet i hovedstaden.</p>
+					<h3>Hold meg oppdatert!</h3>
+					<p>
+						<a href="http://eepurl.com/bLAV41" target="new" class="btn btn-lg btn-default"><i class="fa fa-cogs"></i> Som utvikler</a>
+						<a href="http://eepurl.com/bLA3YL" target="new" class="btn btn-lg btn-default"><i class="fa fa-quote-right"></i> Som journalist</a>
+						<a href="http://eepurl.com/bLyCVT" target="new" class="btn btn-lg btn-default"><i class="fa fa-newspaper-o"></i> Hold meg oppdatert</a>
+					</p>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -256,8 +300,38 @@
 	</script>
 	<script src="js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	<script src="js/ie10-viewport-bug-workaround.js"></script>
 	<script type="text/javascript" src="js/modernizr.js"></script>
 	<script type="text/javascript" src="js/menu_scroll.js"></script>
+	<script>
+		var map = L.map('main_map').setView([59.93042, 10.77072], 12);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		}).addTo(map);
+
+		var popup = L.popup();
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("You clicked the map at " + e.latlng.toString())
+				.openOn(map);
+		}
+
+		map.on('click', onMapClick);
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			console.log("Welcoming modal");
+			$("#welcome_modal").modal('show');
+		});
+	</script>
 </body>
 </html>
