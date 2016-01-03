@@ -6,6 +6,8 @@ import java.util.Date;
 import org.ektorp.support.CouchDbDocument;
 import org.ektorp.support.TypeDiscriminator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 
 public class NewsContent extends CouchDbDocument implements Serializable {
@@ -19,6 +21,10 @@ public class NewsContent extends CouchDbDocument implements Serializable {
 	private String url;
 	private int shelfLifeHours = 12;
 	private int checksum;
+	
+	public NewsContent() {
+		
+	}
 
 	public String get_id() {
 		return this._id;
@@ -36,6 +42,7 @@ public class NewsContent extends CouchDbDocument implements Serializable {
 		this._rev = _rev;
 	}
 
+	@JsonProperty
 	public String getUrl() {
 		return url;
 	}
@@ -51,7 +58,8 @@ public class NewsContent extends CouchDbDocument implements Serializable {
 	public void setDateStamp(String dateStamp) {
 		this.dateStamp = dateStamp;
 	}
-
+	
+	@JsonProperty
 	public String getContent() {
 		return content;
 	}
@@ -69,6 +77,7 @@ public class NewsContent extends CouchDbDocument implements Serializable {
 		this.checksum = checksum;
 	}
 
+	@JsonProperty
 	public int getShelfLifeHours() {
 		return shelfLifeHours;
 	}
