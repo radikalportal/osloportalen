@@ -32,7 +32,7 @@ public class NewsFeedServlet extends HttpServlet {
 		System.out.println("Answering a GET request...");
 		StringWriter writer = new StringWriter();
 		response.setContentType("application/JSON");
-		writer.append("Hello world!");
+//		writer.append("Hello world!");
 
 		NewsContentRepository newsRepo = BasicStorageFactory.getNewsContentRepository();
 		List<NewsContent> contentList = new ArrayList<NewsContent>();
@@ -45,9 +45,7 @@ public class NewsFeedServlet extends HttpServlet {
 		}
 		
 		Gson gson = new Gson();
-		for (NewsContent content : contentList) {
-			writer.write(gson.toJson(content));
-		}
+		writer.write(gson.toJson(contentList));
 		response.getWriter().write(writer.toString());
 	}
 }
