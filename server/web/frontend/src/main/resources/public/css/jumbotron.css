@@ -1,0 +1,20 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+
+.jumbotron {
+	background-image: url("../img/zen_with_logo.jpg");
+	background-repeat: no-repeat;
+	border: 1px solid #404040;
+	height: 320px;
+	color: white;
+	text-shadow: 2px 2px #404040;
+	padding-bottom: 45px;
+	margin-bottom: 0px;
+}
+
+.small-jumbo {
+	height: 100px;
+}
