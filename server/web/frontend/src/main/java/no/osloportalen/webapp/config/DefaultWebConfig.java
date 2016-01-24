@@ -1,7 +1,7 @@
 package no.osloportalen.webapp.config;
 
 import static spark.Spark.get;
-import static spark.SparkBase.staticFileLocation;
+import static spark.Spark.staticFileLocation;
 
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
