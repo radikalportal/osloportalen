@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jdk.version>1.8</jdk.version>
-		<spark.version>2.2</spark.version>
+		<spark.version>2.3</spark.version>
 		<spark.freemarker.version>2.0.0</spark.freemarker.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<jdk.version>1.8</jdk.version>
@@ -93,17 +93,18 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.3.4.RC1</version>
 				<configuration>
+					<webApp>
+						<descriptor>${project.basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
+					</webApp>
+					<httpConnector>
+						<port>4567</port>
+						<host>local.osloportalen.no</host>
+						<name>osloportalen-angular</name>
+					</httpConnector>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<jettyXml>${basedir}/src/main/webapp/WEB-INF/jetty.xml</jettyXml>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8080</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
+					<!-- <jettyXml>${project.basedir}/src/main/webapp/jetty-http.xml</jettyXml> -->
 				</configuration>
-			</plugin>
-			<plugin>
+			</plugin>			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>

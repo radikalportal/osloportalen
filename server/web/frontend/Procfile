@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* AngularJSWebappStarter
+web:    java -cp target/classes:target/dependency/* no.osloportalen.webapp.starter.AngularJSWebappStarter -Dhttp.port=$PORT
